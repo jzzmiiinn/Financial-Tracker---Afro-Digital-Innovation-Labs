@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import Layout from "./components/Layout/Layout";
 import Modal from "./components/UI/Modal";
 import TransactionForm from "./components/Transactions/TransactionForm";
@@ -61,7 +61,7 @@ function App() {
       addTransaction({
         date: data.date,
         type: data.type,
-        amount: data.amount,
+        amount: Number(data.amount),
         category: data.category,
         description: data.description,
       });
