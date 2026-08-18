@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { TRANSACTION_CATEGORIES } from "../../constants/categories"; 
+import { TRANSACTION_CATEGORIES } from "../../constants/categories";
 
 export interface TransactionFormData {
   date: string;
@@ -85,6 +85,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
   const [errors, setErrors] = useState<{
     amount?: string;
     category?: string;
+    date?: string; // ✅ Added date to errors type
   }>({});
 
   const isEditing = useMemo(() => !!initialData, [initialData]);
@@ -118,7 +119,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
   };
 
   const validateForm = (data: TransactionFormData) => {
-    const newErrors: { amount?: string; category?: string } = {};
+    const newErrors: { amount?: string; category?: string; date?: string } = {};
 
     const amount = Number(data.amount);
     if (!data.amount || isNaN(amount) || amount <= 0) {
@@ -127,6 +128,11 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
 
     if (!data.category) {
       newErrors.category = "Please select a category";
+    }
+
+    // Optional: Add date validation if needed
+    if (!data.date) {
+      newErrors.date = "Please select a date";
     }
 
     return newErrors;
@@ -177,14 +183,14 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
       </div>
 
       {/* Date */}
-      <FormField id="date" label="Date" required>
+      <FormField id="date" label="Date" error={errors.date} required>
         <input
           type="date"
           id="date"
           name="date"
           value={formData.date}
           onChange={handleChange}
-          className={inputClasses}
+          className={errors.date ? errorInputClasses : inputClasses}
           aria-required="true"
           aria-describedby={errors.date ? "date-error" : undefined}
           aria-invalid={!!errors.date}
