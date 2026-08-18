@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import Layout from "./components/Layout/Layout";
 import Modal from "./components/UI/Modal";
 import TransactionForm from "./components/Transactions/TransactionForm";
@@ -61,7 +61,7 @@ function App() {
       addTransaction({
         date: data.date,
         type: data.type,
-        amount: data.amount,
+        amount: Number(data.amount),
         category: data.category,
         description: data.description,
       });
@@ -134,26 +134,28 @@ function App() {
       </Modal>
 
       {/* Delete Confirmation Modal */}
+      {/* Delete Confirmation Modal */}
       <Modal
         isOpen={!!deleteId}
         onClose={() => setDeleteId(null)}
         title="Delete Transaction"
       >
-        <div className="space-y-6">
-          <p className="text-sm text-slate-600">
+        <div className="mx-auto max-w-xs space-y-6">
+          <p className="text-sm leading-relaxed text-slate-600">
             Are you sure you want to delete this transaction? This action cannot
             be undone.
           </p>
-          <div className="flex gap-3">
+
+          <div className="flex gap-3 pt-2">
             <button
               onClick={() => setDeleteId(null)}
-              className="flex-1 rounded-xl border border-slate-300 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+              className="flex-1 rounded-xl border border-slate-300 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
             >
               Cancel
             </button>
             <button
               onClick={confirmDelete}
-              className="flex-1 rounded-xl bg-red-500 py-2.5 text-sm font-medium text-white hover:bg-red-600"
+              className="flex-1 rounded-xl bg-red-500 py-2.5 text-sm font-medium text-white transition hover:bg-red-600"
             >
               Delete
             </button>

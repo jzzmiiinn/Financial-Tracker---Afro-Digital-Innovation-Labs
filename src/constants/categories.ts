@@ -1,4 +1,5 @@
-export const CATEGORIES = [
+// constants/categories.ts
+export const TRANSACTION_CATEGORIES = [
   "Salary",
   "Freelance",
   "Investment",
@@ -11,4 +12,4 @@ export const CATEGORIES = [
   "Other",
 ] as const;
 
-export type Category = (typeof CATEGORIES)[number];
+export type TransactionCategory = (typeof TRANSACTION_CATEGORIES)[number];
